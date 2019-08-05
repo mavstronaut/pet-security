@@ -12,6 +12,10 @@
 
   <!-- Style to fix the issue of text extending past card length -->
   <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- firebase auth -->
+  <script src="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.css" />
 </head>
 
 <body> 
@@ -114,7 +118,10 @@
   <!-- Footer Region -->
   <div class="row">
     <div class="col-sm-12">
+        <!-- The surrounding HTML is left untouched by FirebaseUI.
+        Your app may use that space for branding, controls and other customizations.-->
 
+        <div id="firebaseui-auth-container"></div>
       <!-- Line Break followed by closing -->
       <hr>
       <h5 class="text-center">
