@@ -3,3 +3,8 @@
 ## Overview
 This app allows for the remote control of a soundboard to distract and train your pets remotely from a secure app only you can access.
 
+Stack
+    PM2
+    Express
+    Socket IO
+    Firebase Auth
