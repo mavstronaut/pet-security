@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pet Trainer</title>
+  <!-- Bootstrap CSS CDN  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+
+  <!-- Font Awesome CSS Icons (For cool glyphicons) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+  <!-- Style to fix the issue of text extending past card length -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- firebase auth -->
+  <script src="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.css" />
+</head>
+
+<body> 
+
+  <!-- Main Bootstrap Search -->
+  <div class="container">
+
+    <!-- Jumbotron for Title -->
+    <div class="jumbotron" style="background-color: rgb(16, 25, 46) ; color: white;">
+      <h1 class="text-center">
+        <strong>
+          <i class="fa fa-newspaper-o"></i>Pet Sec Training App</strong>
+      </h1>
+    </div>
+        <!-- Consider adding a navbar to filter out different actions,
+                i.e. Sounds, Actions, Youtube video search -->
+
+        <!-- This row will handle all of the retrieved trains -->
+        <div class="row">
+            <div class="col-sm-12">
+              <br>
+      
+              <!-- This card will initially be made up of a card and wells for each of the articles retrieved -->
+              <div class="card">
+      
+                <!-- card Heading for the retrieved trains box -->
+                <div class="card-header">
+                  <strong>
+                    <i class="fa fa-table"></i> Soundboard</strong>
+                    <div id="myBtnContainer">
+                      <button class="btn active" onclick="filterSelection('all')"> Show all</button>
+                      <button class="btn" onclick="filterSelection('good')"> Good Boye</button>
+                      <button class="btn" onclick="filterSelection('distract')"> Distraction</button>
+                      <button class="btn" onclick="filterSelection('bad')"> Bad Boye</button>
+                      <button class="btn" onclick="filterSelection('music')"> Music</button>
+                    </div>
+                  <div class="card-body" id="recent-member">
+                    <!-- add buttons for sounds -->
+                    <button class="btn-card filterDiv good" id="gd1">
+                        <img src="images/dog-play.png">
+                    </button>
+
+                    <button class="btn-card filterDiv bad" id="bd1">
+                        <img src="images/dog-bark.png">
+                    </button>
+
+                    <button class="btn-card filterDiv distract" id="ds1">
+                        <img src="images/dog-sit.png">
+                    </button>
+                    
+                    <button class="btn-card filterDiv music" id="slp1">
+                        <img src="images/dog-sleep.png">
+                    </button>
+                    
+      
+                  </div>
+                </div>
+      
+              </div>
+      
+              <!-- This main card will hold each of the resulting articles -->
+              <div class="card-body" id="article-section">
+              </div>
+            </div>
+          </div>
+
+          <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <strong><i class="fa fa-list-alt"></i> Owner Login</strong>
+                </button>
+              </h5>
+            </div>
+        
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                
+                <!-- Here we create an HTML Form for handling the inputs-->
+                <div class="col-sm-12">
+                  <!-- The surrounding HTML is left untouched by FirebaseUI.
+                  Your app may use that space for branding, controls and other customizations.-->
+          
+                  <div id="firebaseui-auth-container"></div>
+                <!-- Line Break followed by closing -->
+                <hr>
+                <h5 class="text-center">
+          
+                  </small>
+                </h5>
+          
+              </div>
+                
+              </div>
+            </div>
+          </div>
+
+
+
+  <!-- Footer Region -->
+  <div class="row">
+
+  </div>
+
+  </div>
+
+  <!-- firebase link -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+  <!-- jQuery JS -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+  <!-- Code to the JavaScript File -->
+  <script src="./assets/js/firebase.js"></script>
+  <script src="./assets/js/local.js"></script>
+
+  <!-- filter js -->
+  <script>
+    filterSelection("all")
+    function filterSelection(c) {
+      var x, i;
+      x = document.getElementsByClassName("filterDiv");
+      if (c == "all") c = "";
+      // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+      for (i = 0; i < x.length; i++) {
+        w3RemoveClass(x[i], "show");
+        if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+      }
+    }
+
+    // Show filtered elements
+    function w3AddClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) {
+          element.className += " " + arr2[i];
+        }
+      }
+    }
+
+    // Hide elements that are not selected
+    function w3RemoveClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) > -1) {
+          arr1.splice(arr1.indexOf(arr2[i]), 1); 
+        }
+      }
+      element.className = arr1.join(" ");
+    }
+
+    // Add active class to the current control button (highlight it)
+    var btnContainer = document.getElementById("myBtnContainer");
+    var btns = btnContainer.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function() {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+      });
+    }
+  </script>
+</body>
+
+</html>

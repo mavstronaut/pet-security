@@ -1,5 +1,5 @@
 
-var keys = require("./keys.js");
+var keys = require("./keys.js.js.js");
   // Initialize Firebase
   firebase.initializeApp(keys);
 
